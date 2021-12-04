@@ -1,0 +1,29 @@
+{% extends 'layout.html'%}
+
+{% block body %}
+<div class="col-md-4 offset-md-4">
+    <div class="card card-body">
+        <form action="/update/{{customers.0}}" method="POST">
+            <div class="form-group">
+                <input type="text" name="id" placeholder="Id Cliente" value={{customers.0}} class="form-control" disabled>
+            </div>
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Nombre Cliente" value={{customers.1}} class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="text" name="status" placeholder="Estado Cliente" value={{customers.2}} class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="text" name="mobile" placeholder="Movíl Cliente" value={{customers.3}} class="form-control">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block btn-sm">
+                    Guardar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

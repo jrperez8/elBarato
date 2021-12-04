@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-5">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            {{message}}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="card card-body">
+            <form action="/add" method="POST">
+                <div class="form-group">
+                    <input type="text" name="id" placeholder="Id Cliente" class="form-control">
+                </div>  
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Nombre Cliente" class="form-control">
+                </div>  
+                <div class="form-group">
+                    <input type="text" name="status" placeholder="Estado Cliente" class="form-control">
+                </div>  
+                <div class="form-group">
+                    <input type="text" name="mobile" placeholder="Movíl Cliente" class="form-control">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block btn-sm">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <table class="table table-hover table-bordered bg-white table-sm ">
+            <thead>
+                <tr>
+                    <td>Id Cliente</td>
+                    <td>Nombre Cliente</td>
+                    <td>Estado Cliente</td>
+                    <td>Movíl Cliente</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                <tr>
+                    <td>{{ customer.0 }}</td>
+                    <td>{{ customer.1 }}</td>
+                    <td>{{ customer.2 }}</td>
+                    <td>{{ customer.3 }}</td>
+                    <td><a href="/edit/{{customer.0}}" class="btn btn-info btn-sm">Editar</a></td>
+                    <td><a href="/delete/{{customer.0}}" class="btn btn-danger btn-sm btn-delete">Eliminar</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
