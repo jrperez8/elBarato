@@ -3,18 +3,18 @@
 {% block body %}
 <div class="col-md-4 offset-md-4">
     <div class="card card-body">
-        <form action="/update/{{customers.0}}" method="POST">
+        <form action="/updatefact/{{invoices.0}}" method="POST">
             <div class="form-group">
-                <input type="text" name="id" value={{customers.0}} disabled>
+                <input type="text" name="number" value={{invoices.0}}  disabled>
             </div>
             <div class="form-group">
-                <input type="text" name="name" value={{customers.1}}>
+                <input type="text" name="fecha" value={{invoices.1}}>
             </div>
             <div class="form-group">
-                <input type="text" name="status" value={{customers.2}}>
+                <input type="text" name="price" value={{invoices.3}}>
             </div>
             <div class="form-group">
-                <input type="text" name="mobile" value={{customers.3}}>
+                <input type="text" name="balance" value={{invoices.4}}>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block btn-sm">
@@ -24,6 +24,4 @@
         </form>
     </div>
 </div>
-
-
 {% endblock %}
