@@ -1,68 +1,21 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-<div class="row">
-    <div class="col-md-5">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-        
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{message}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
-        <div class="card card-body pt-2">
-            <h3>Registro de Clientes</h3>
-            <form action="/add" method="POST">
-                <div class="form-group my-2">
-                    <input type="text" name="id" placeholder="Id Cliente" class="form-control">
-                </div>  
-                <div class="form-group my-2">
-                    <input type="text" name="name" placeholder="Nombre Cliente" class="form-control">
-                </div>  
-                <div class="form-group my-2">
-                    <input type="text" name="status" placeholder="Estado Cliente" class="form-control">
-                </div>  
-                <div class="form-group my-2">
-                    <input type="text" name="mobile" placeholder="Movíl Cliente" class="form-control">
+<main>
+    <section>
+        <div class="container-fluid" style="background: url(/static/images/bg2.jpg) no-repeat left center; background-size: cover;">
+            <div class="px-5 py-5 my-1 mb-1 text-center ">
+                <h1 class="display-1 text-warning fw-bold amiri mb-5 pt-5">Supermercado El Barato</h1>
+                <div class="col-lg-6 mx-auto">
+                    <p class="lead caveat h1 text-dark">La mejor variedad de productos al mejor precio...</p>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-5 mb-5 pt-4">
+                        <a href="/clientes" class="btn btn-success btn-lg px-4 me-sm-3 amiri">CLIENTES</a>
+                        <a href="/facturar" class="btn btn-warning btn-lg px-4 amiri">FACTURAS</a>
+                    </div>
                 </div>
-                <div class="form-group my-2 d-grid gap-2">
-                    <button type="submit" class="btn btn-success btn-block btn-sm">
-                        Guardar
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
-    <div class="col-md-7">
-        <h3>Listado de Clientes</h3>
-        <table class="table table-hover table-bordered bg-white table-sm ">
-            <thead>
-                <tr>
-                    <td>Id Cliente</td>
-                    <td>Nombre Cliente</td>
-                    <td>Estado Cliente</td>
-                    <td>Movíl Cliente</td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for customer in customers %}
-                <tr>
-                    <td>{{ customer.0 }}</td>
-                    <td>{{ customer.1 }}</td>
-                    <td>{{ customer.2 }}</td>
-                    <td>{{ customer.3 }}</td>
-                    <td><a href="/edit/{{customer.0}}" class="btn btn-info btn-sm">Editar</a></td>
-                    <td><a href="/delete/{{customer.0}}" class="btn btn-danger btn-sm btn-delete">Eliminar</a></td>
-                    <td><a href="/facturar/{{customer.0}}" class="btn btn-warning btn-sm" >Facturar</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
+    </section>
+</main>
 
 {% endblock %}

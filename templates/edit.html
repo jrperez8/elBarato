@@ -3,22 +3,27 @@
 {% block body %}
 <div class="col-md-4 offset-md-4">
     <div class="card card-body">
+        <h4>Actualización de Clientes</h4>
         <form action="/update/{{customers.0}}" method="POST">
             <div class="form-group">
-                <input type="text" name="id" value={{customers.0}} disabled>
+                <label for="" class="form-label">ID</label>
+                <input type="text" class="form-control" name="id" value="{{customers.0}}" disabled>
+            </div>            
+            <div class="form-group my-2">
+                <label for="" class="form-label">Nombre Cliente</label>
+                <input type="text" class="form-control" name="name" value="{{customers.1}}">
             </div>
-            <div class="form-group">
-                <input type="text" name="name" value={{customers.1}}>
+            <div class="form-group my-2">
+                <label for="" class="form-label">Estado Cliente</label>
+                <input type="text" name="status" class="form-control" value="{{customers.2}}">
             </div>
-            <div class="form-group">
-                <input type="text" name="status" value={{customers.2}}>
+            <div class="form-group my-2">
+                <label for="" class="form-label">Movil Cliente</label>
+                <input type="text" name="mobile" class="form-control" value="{{customers.3}}">
             </div>
-            <div class="form-group">
-                <input type="text" name="mobile" value={{customers.3}}>
-            </div>
-            <div class="form-group">
+            <div class="form-group my-2">
                 <button type="submit" class="btn btn-primary btn-block btn-sm">
-                    Guardar
+                    Actulizar
                 </button>
             </div>
         </form>

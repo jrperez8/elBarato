@@ -11,16 +11,20 @@ mysql = MySQL(app)
 app.secret_key = 'qwerty'
 
 @app.route('/')
-def Index():
+def Index():    
+    return render_template('index.html')
+
+@app.route('/clientes')
+def Clientes():
     cur = mysql.connection.cursor()
     cur.execute('SELECT * FROM  customer')
     data = cur.fetchall()
-    return render_template('index.html', customers = data)
+    return render_template('clientes.html', customers = data)
 
-@app.route('/facturar/<id>')
-def facturar(id):
+@app.route('/facturar')
+def facturar():
     cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM facturas WHERE id_cli = {0}'.format(id))
+    cur.execute('SELECT * FROM facturas')
     data = cur.fetchall()
     return render_template('facturar.html', invoices = data)
 
@@ -36,7 +40,7 @@ def add_contact():
         cur.execute('INSERT INTO customer (id, name, status, mobile) VALUES (%s, %s, %s, %s)', (id,name, status, mobile))
         mysql.connection.commit()
         flash('Contacto Agregado de Forma Correcta')
-        return redirect(url_for('Index'))
+        return redirect(url_for('Clientes'))
 
 
 @app.route('/addfact', methods=['POST'])
@@ -53,12 +57,14 @@ def add_factura():
       return redirect(url_for('Index'))
        
     
-@app.route('/edit/<id>')
+@app.route('/edit/<id>', methods = ['POST', 'GET'])
 def editContact(id):
     cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM customer WHERE id = {0}'.format(id))
+    cur.execute('SELECT * FROM customer WHERE id = %s', [id])
     data = cur.fetchall()
-    return render_template('edit.html', customers = data[0])
+    cur.close()
+    print(data[0])
+    return  render_template('edit.html', customers = data[0])
 
 
 @app.route('/editfact/<number>')
@@ -84,7 +90,7 @@ def update(id):
         """, (name, status, mobile, id))
         mysql.connection.commit()
         flash('Cliente Actualizado')
-        return redirect(url_for('Index'))
+        return redirect(url_for('Clientes'))
 
 @app.route('/delete/<string:id>')
 def delete_contact(id):
@@ -92,7 +98,7 @@ def delete_contact(id):
     cur.execute('DELETE FROM customer WHERE id = {0}'.format(id))
     mysql.connection.commit()
     flash('Contacto Removido Satisfactoriamente')
-    return redirect(url_for('Index'))
+    return redirect(url_for('Clientes'))
 
 @app.route('/deletefact/<string:number>')
 def delete_factura(number):
