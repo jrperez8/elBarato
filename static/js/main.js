@@ -10,6 +10,18 @@ if(btnDelete) {
     });
 }
 
+const btnEliminar = document.querySelectorAll('.btn-eliminar');
+if(btnEliminar) {
+    const btnArray =  Array.from(btnEliminar);
+    btnArray.forEach((btn) =>{
+        btn.addEventListener('click', (e) => {
+         if (!confirm('Desea Eliminar este Elemento?')){
+             e.preventDefault();
+         }
+        });
+     });  
+}
+
 function removeCliente(){    
     let opcion = confirm ('Desea Eliminar este Elemento?');
     if (opcion == false){
@@ -59,6 +71,46 @@ function registroClientes(){
     }  
    
 }
+
+function registroFactura(){   
+
+    let date = document.getElementById("date").value;
+    let idcli = document.getElementById("idcli").value;
+    let price = document.getElementById("price").value;
+    let balance = document.getElementById("balance").value;
+
+
+    var expresion = /^[a-z][\w.-]+@\w[\w.-]+\.[\w.-]*[a-z][a-z]$/i;
+    
+    if( date == null || date.length == 0){
+        alert ("El Campo Fecha debe ser diligenciado");
+        return false;
+    }
+    else {
+        if( idcli == null || idcli.length == 0 ) {
+            alert ("El Campo ID Cliente debe ser Diligenciado");
+            return false;
+          }
+          else {
+            if( price == null || price.length == 0 ) {
+                alert ("El Campo Precio debe ser Diligenciado");
+                return false;
+              }
+              else {
+                if( balance == null || balance.length == 0){
+                    alert ("El Campo Balance debe ser diligenciado");
+                    return false;
+                }
+                else{
+                    return true;
+                }
+              }
+          }
+    }  
+   
+}
+
+
 
 function prueba(){
     alert ("Prueba JS")

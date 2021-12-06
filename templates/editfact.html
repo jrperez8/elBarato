@@ -3,22 +3,31 @@
 {% block body %}
 <div class="col-md-4 offset-md-4">
     <div class="card card-body">
+        <h4>Editar Factura</h4>
         <form action="/updatefact/{{invoices.0}}" method="POST">
             <div class="form-group">
-                <input type="text" name="number" value={{invoices.0}}  disabled>
+                <label for="" class="form-label">Número de Factura</label>
+                <input type="text" class="form-control" name="number" value="{{invoices.0}}" disabled>
+            </div>            
+            <div class="form-group my-2">
+                <label for="" class="form-label">Fecha de Factura</label>
+                <input type="text" class="form-control" name="date" value="{{invoices.1}}">
             </div>
-            <div class="form-group">
-                <input type="text" name="fecha" value={{invoices.1}}>
+            <div class="form-group my-2">
+                <label for="" class="form-label">ID Cliente</label>
+                <input type="text" name="idcli" class="form-control" value="{{invoices.2}}">
             </div>
-            <div class="form-group">
-                <input type="text" name="price" value={{invoices.3}}>
+            <div class="form-group my-2">
+                <label for="" class="form-label">Precio Factura</label>
+                <input type="text" name="price" class="form-control" value="{{invoices.3}}">
             </div>
-            <div class="form-group">
-                <input type="text" name="balance" value={{invoices.4}}>
+            <div class="form-group my-2">
+                <label for="" class="form-label">Balance Factura</label>
+                <input type="text" name="balance" class="form-control" value="{{invoices.4}}">
             </div>
-            <div class="form-group">
+            <div class="form-group my-2">
                 <button type="submit" class="btn btn-primary btn-block btn-sm">
-                    Guardar
+                    Actualizar
                 </button>
             </div>
         </form>

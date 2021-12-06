@@ -54,7 +54,7 @@ def add_factura():
       cur.execute('INSERT INTO facturas (fecha, id_cli, price, balance) VALUES (%s, %s, %s, %s)', (date, id, price, balance))
       mysql.connection.commit()
       flash('Factura Agregada de Forma Correcta')
-      return redirect(url_for('Index'))
+      return redirect(url_for('facturar'))
        
     
 @app.route('/edit/<id>', methods = ['POST', 'GET'])
@@ -63,18 +63,18 @@ def editContact(id):
     cur.execute('SELECT * FROM customer WHERE id = %s', [id])
     data = cur.fetchall()
     cur.close()
-    print(data[0])
-    return  render_template('edit.html', customers = data[0])
+    return render_template('edit.html', customers = data[0])
 
 
-@app.route('/editfact/<number>')
+@app.route('/editfact/<number>', methods = ['POST', 'GET'])
 def editFactura(number):
     cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM facturas WHERE number = {0}'.format(number))
-    data = cur.fetchall()
-    return render_template('editfact.html', invoices = data)
+    cur.execute('SELECT * FROM facturas WHERE number = %s', [number])
+    data2 = cur.fetchall()
+    cur.close()
+    return render_template('editfact.html', invoices = data2[0])
 
-@app.route('/update/<id>', methods = ['POST'])
+@app.route('/update/<id>', methods = ['POST', 'GET'])
 def update(id):
     if request.method == 'POST':
         name = request.form['name']
@@ -92,6 +92,27 @@ def update(id):
         flash('Cliente Actualizado')
         return redirect(url_for('Clientes'))
 
+@app.route('/updatefact/<number>', methods = ['POST' , 'GET'])
+def updatefact(number):
+    if request.method == 'POST':
+        #number = request.form['number']
+        date = request.form['date']
+        idcli = request.form['idcli'] 
+        price = request.form['price']  
+        balance = request.form['balance']        
+        cur = mysql.connection.cursor()
+        cur.execute("""
+             UPDATE facturas
+             SET fecha = %s,
+                 id_cli = %s,
+                 price = %s,
+                 balance = %s
+           WHERE number = %s
+         """, (date, idcli, price, balance, number))
+        mysql.connection.commit()
+        flash('Factura Actualizada')
+        return redirect(url_for('facturar'))
+
 @app.route('/delete/<string:id>')
 def delete_contact(id):
     cur = mysql.connection.cursor()
@@ -106,7 +127,7 @@ def delete_factura(number):
     cur.execute('DELETE FROM facturas WHERE number = {0}'.format(number))
     mysql.connection.commit()
     flash('Factura Removida Satisfactoriamente')
-    return redirect(url_for('Index'))
+    return redirect(url_for('facturar'))
 
 if __name__ == '__main__':
     app.run(port = 3000, debug = True)

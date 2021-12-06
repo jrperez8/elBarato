@@ -1,36 +1,8 @@
 {% extends 'layout.html'%}
 
 {% block body %}
-<div class="row">
-    <div class="col-md-7">
-        <h3>Listado de Facturas Cliente</h3>
-        <table class="table table-hover table-bordered bg-white table-sm ">
-            <thead>
-                <tr>
-                    <td>Numero Factura</td>
-                    <td>Fecha Factura</td>
-                    <td>ID Cliente</td>
-                    <td>Valor Factura</td>
-                    <td>Saldo Factura</td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for invoice in invoices %}
-                <tr>
-                    <td>{{ invoice.0 }}</td>
-                    <td>{{ invoice.1 }}</td>
-                    <td>{{ invoice.2 }}</td>
-                    <td>{{ invoice.3 }}</td>
-                    <td>{{ invoice.4 }}</td>
-                    <td><a href="/editfact/{{invoice.0}}" class="btn btn-info btn-sm">Editar</a></td>
-                    <td><a href="/deletefact/{{invoice.0}}" class="btn btn-danger btn-sm btn-delete">Eliminar</a></td>
-                    <td><a href="/" class="btn btn-warning btn-sm" >Clientes</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div class="col-md-5">
+<div class="row">    
+    <div class="col-md-4">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         {% for message in messages %}
@@ -44,18 +16,18 @@
         {% endwith %}
         <div class="card card-body pt-2">
             <h3>Registro de Facturas</h3>
-            <form action="/addfact" method="POST"> 
+            <form action="/addfact" method="POST" onsubmit="return registroFactura()">
                 <div class="form-group my-2">
-                    <input type="text" name="date" placeholder="Fecha Factura" class="form-control">
+                    <input type="text" name="date" id="date" placeholder="Fecha Factura" class="form-control">
                 </div>  
                 <div class="form-group my-2">
-                    <input type="text" name="idcli" placeholder="ID Cliente"  class="form-control">
+                    <input type="text" name="idcli" id="idcli" placeholder="ID Cliente" class="form-control">
                 </div>  
                 <div class="form-group my-2">
-                    <input type="text" name="price" placeholder="Precio Factura" class="form-control">
+                    <input type="text" name="price" id="price" placeholder="Precio Factura" class="form-control">
                 </div>  
                 <div class="form-group my-2">
-                    <input type="text" name="balance" placeholder="Saldo Factura" class="form-control">
+                    <input type="text" name="balance" id="balance" placeholder="Balance Factura" class="form-control">
                 </div>
                 <div class="form-group my-2 d-grid gap-2">
                     <button type="submit" class="btn btn-success btn-block btn-sm">
@@ -65,6 +37,38 @@
             </form>
         </div>
     </div>
+    <div class="col-md-8">
+        <h3>Listado de Facturas</h3>
+        <table class="table table-hover table-bordered bg-white table-sm ">
+            <thead>
+                <tr>
+                    <td>Número Factura</td>
+                    <td>Fecha Factura</td>
+                    <td>ID Cliente</td>
+                    <td>Precio Factura</td>
+                    <td>Balance Factura</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for invoice in invoices %}
+                <tr>
+                    <td>{{ invoice.0 }}</td>
+                    <td>{{ invoice.1 }}</td>
+                    <td>{{ invoice.2 }}</td>
+                    <td>{{ invoice.3 }}</td>
+                    <td>{{ invoice.4 }}</td>
+                    <td><a href="/editfact/{{invoice.0}}" class="btn btn-info btn-sm">Editar</a></td>
+                    <td><a href="/deletefact/{{invoice.0}}" class="btn btn-danger btn-sm btn-eliminar">Eliminar</a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+            <a href="/clientes" type="button" class="btn btn-warning my-2 btn-block btn-lg">
+                Clientes
+            </a>
+        </table>
+    </div>
+
 </div>
 
 {% endblock %}
